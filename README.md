@@ -2,4 +2,6 @@
 ## X-Ray Brain Tumor Classification
 ### Multi-model Pipeline Process
 
-Data ref: https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset/data
+Possible Datasets to use: 
+https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset/data
+https://huggingface.co/datasets/PranomVignesh/MRI-Images-of-Brain-Tumor
