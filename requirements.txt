@@ -1,0 +1,5 @@
+Installations Needed
+pip install torch torchvision matplotlib
+
+torch
+torchvision
