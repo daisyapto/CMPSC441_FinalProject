@@ -1,3 +1,4 @@
+# Saved model after training as CNN_Model2.pth, but have not tested for accuracy yet
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
