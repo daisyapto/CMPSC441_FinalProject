@@ -1,10 +1,11 @@
-# Saved model after training as CNN_Model2.pth, but have not tested for accuracy yet
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.nn import CrossEntropyLoss
 from torchvision import models, transforms
 import torchvision
+from PIL import Image
+from Models.CNN_Model import BrainCNN
 
 class NN(nn.Module):
     def __init__(self):
@@ -25,13 +26,14 @@ class NN(nn.Module):
         x = self.pool(F.relu(self.conv4(x)))
         x = torch.flatten(x, 1)
         # Programmatically calculate FC input size
-        print(x.size())
+        #print(x.size())
         x = self.fc1(x)
-        print("Forward Call #: ", self.forwardCall)
+        #print("Forward Call #: ", self.forwardCall)
         self.forwardCall += 1
         return x
 
-# Training process
+####### Training process #######
+"""
 NUM_EPOCHS = 10
 TRAIN_PATH = "/Users/daisyaptovska/Desktop/CMPSC441_FinalProject/Data/train/"
 TEST_PATH = "/Users/daisyaptovska/Desktop/CMPSC441_FinalProject/Data/test/"
@@ -49,6 +51,8 @@ train_loader = torch.utils.data.DataLoader(train_data, batch_size=64, shuffle=Tr
 test_loader = torch.utils.data.DataLoader(test_data, batch_size=64, shuffle=True)
 
 network = NN()
+mod = BrainCNN()
+
 crit = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(network.parameters(), lr=0.01, momentum=0.9)
 
@@ -67,4 +71,55 @@ for epoch in range(NUM_EPOCHS):
     print(f"Epoch {epoch + 1}, Loss: {train_loss}")
 
 torch.save(network.state_dict(), '/Users/daisyaptovska/Desktop/CMPSC441_FinalProject/Saved_Models/CNN_Model2.pth')
-print("Model successfully saved!")
+print("Model successfully saved!")"""
+
+
+###### Testing ######
+"""
+test_data = torchvision.datasets.ImageFolder(root=TEST_PATH, transform=transform)
+test_loader = torch.utils.data.DataLoader(test_data, batch_size=64, shuffle=True)
+
+state = torch.load("/Users/daisyaptovska/Desktop/CMPSC441_FinalProject/Saved_Models/CNN_Model2.pth")
+network.load_state_dict(state)
+network.eval()
+
+state2 = torch.load("/Users/daisyaptovska/Desktop/CMPSC441_FinalProject/Saved_Models/brain_cnn.pth")
+mod.load_state_dict(state2)
+mod.eval()
+
+image_path = "/Users/daisyaptovska/Desktop/CMPSC441_FinalProject/Data/test/Brain_Tumor/Cancer (1).jpg"
+image = Image.open(image_path).convert("RGB")
+image = transform(image)
+image = image.unsqueeze(0)  # Add batch dimension
+
+with torch.no_grad():
+    outputs = network(image)
+    _, predicted = torch.max(outputs, 1)
+
+classes = ["brain_tumor", "healthy"]
+
+print(classes[predicted.item()], round(_.item() * 100, 2), "%")"""
+"""
+total = 0
+correct = 0
+
+for images, labels in test_loader:
+    outputs = network(images)
+    _, predicted = torch.max(outputs, 1)
+
+    total += labels.size(0)
+    correct += (predicted == labels).sum().item()
+
+print("Test Accuracy:", 100 * correct / total)
+
+total = 0
+correct = 0
+
+for images, labels in test_loader:
+    outputs = network(images)
+    _, predicted = torch.max(outputs, 1)
+
+    total += labels.size(0)
+    correct += (predicted == labels).sum().item()
+
+print("Test Accuracy:", 100 * correct / total)"""
