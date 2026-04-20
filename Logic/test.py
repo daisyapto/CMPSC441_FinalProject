@@ -1,23 +1,23 @@
 import torch
 from torchmetrics.classification import BinaryAccuracy, BinaryPrecision, BinaryRecall, BinaryF1Score
 
-def test_model(model, test_loader):
+def test_model(model, test_loader, test_loader2=None):
     accuracy = BinaryAccuracy()
     precision = BinaryPrecision()
     recall = BinaryRecall()
     f1 = BinaryF1Score()
 
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model.to(device)
     model.eval()
 
     with torch.no_grad():
-        for images, labels in test_loader:
-            images, labels = images.to(device), labels.to(device)
-            if model.__class__.__name__ != "Ensemble":
+        if test_loader2 is None:
+            for images, labels in test_loader:
                 outputs = model(images)
-            else:
-                outputs = model(images, images)
+            _, predicted = torch.max(outputs, 1)
+
+        if test_loader2 is not None:
+            for (images, labels), (images2, labels2) in zip(test_loader, test_loader2):
+                outputs = model(images, images2)
             _, predicted = torch.max(outputs, 1)
 
     print(f"{model.__class__.__name__} Test Accuracy: ", accuracy(predicted, labels).item() * 100, "%")
