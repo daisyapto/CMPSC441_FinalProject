@@ -25,6 +25,7 @@ class Ensemble(nn.Module):
         return x
 
 # Testing
+"""
 TEST_PATH = "/Users/daisyaptovska/Desktop/CMPSC441_FinalProject/Data/test/"
 
 transform1 = transforms.Compose([
@@ -51,4 +52,4 @@ CNN2.load_state_dict(torch.load("/Users/daisyaptovska/Desktop/CMPSC441_FinalProj
 
 model = Ensemble(CNN1, CNN2)
 test_model(model, test_loader1, test_loader2)
-
+"""
