@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import filedialog
 
 
-def manual_test(model):
+def manual_test(model_num):
     root = tk.Tk()
     root.withdraw()
 
@@ -13,6 +13,6 @@ def manual_test(model):
     )
 
     if file_path:
-        result, confidence = predict_image(file_path, model)
+        confidence, result = predict_image(file_path, model_num)
         print("Prediction:", result)
         print("Confidence:", confidence * 100, "%")
