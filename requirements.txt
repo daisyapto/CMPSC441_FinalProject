@@ -1,5 +1,4 @@
-Installations Needed
-pip install torch torchvision matplotlib
-
+matplotlib
 torch
 torchvision
+tkinter
