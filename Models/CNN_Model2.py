@@ -1,11 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torch.nn import CrossEntropyLoss
-from torchvision import models, transforms
-import torchvision
-from PIL import Image
-from Models.CNN_Model import BrainCNN
 
 class NN(nn.Module):
     def __init__(self):

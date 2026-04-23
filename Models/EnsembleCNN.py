@@ -1,11 +1,5 @@
-import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from Models.CNN_Model import BrainCNN
-from Models.CNN_Model2 import NN
-from torchvision import transforms
-import torchvision
-from Logic.test import test_model
 
 # https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/2
 
