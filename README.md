@@ -14,7 +14,7 @@ Features:
 - UI, creating ease-of-use for model testing & indivudal model predictions
 
 Data folder arrangement:
-- Data --> train, test, and test2 folders
-- train --> Brain_Tumor and Healthy folders
-- test --> Brain_Tumor and Healthy folders
-- test2 --> Brain_Tumor and Healthy folders (image data from second dataset combined into binary classification) 
+- Data --> "train", "test", and "test2" folders
+- train --> "Brain_Tumor" and "Healthy" folders
+- test --> "Brain_Tumor" and "Healthy" folders
+- test2 --> "Brain Tumor" and "Healthy" folders (image data from second dataset combined into binary classification) 
