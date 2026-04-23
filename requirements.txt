@@ -1,4 +1,9 @@
 matplotlib
+tkinter
 torch
 torchvision
-tkinter
+opencv-python
+numpy
+pillow
+customtkinter
+torchmetrics
