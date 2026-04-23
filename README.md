@@ -12,3 +12,9 @@ Features:
 - Provides accuracy, recall, precision, and F1 score classification metrics to test models
 - Manual testing for indivudal image predications and confidence scores
 - UI, creating ease-of-use for model testing & indivudal model predictions
+
+Data folder arrangement:
+- Data --> train, test, and test2 folders
+- train --> Brain_Tumor and Healthy folders
+- test --> Brain_Tumor and Healthy folders
+- test2 --> Brain_Tumor and Healthy folders (image data from second dataset combined into binary classification) 
