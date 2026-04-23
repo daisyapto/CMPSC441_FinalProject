@@ -14,7 +14,6 @@ from Models.CNN_Model2 import NN
 CLASSES = ["Brain Tumor", "Healthy"]
 TEST_DIR = "Data/test2"
 
-
 # LOAD MODEL + TRANSFORMS
 def load_model(model_type, device):
     if model_type == "cnn1":
@@ -84,6 +83,7 @@ def run_inference(model, transforms_tuple, image, device):
 
 # DATABASE TESTING
 def predict_database(model_type, max_images=None):
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     model, transforms_tuple = load_model(model_type=model_type, device=device)
@@ -92,10 +92,17 @@ def predict_database(model_type, max_images=None):
 
     total = 0
     correct = 0
+    tp = 0
+    fp = 0
+    fn = 0
+    tn = 0
     results = []
 
     for label_idx, class_name in enumerate(CLASSES):
         class_path = os.path.join(TEST_DIR, class_name)
+        print(class_path)
+        print("Label 0:", CLASSES[0])
+        print("Label 1:", CLASSES[1])
 
         if not os.path.exists(class_path):
             print(f"Path not found: {class_path}")
@@ -121,8 +128,16 @@ def predict_database(model_type, max_images=None):
             )
 
             total += 1
-            if pred_label == label_idx:
+            if pred_label == label_idx and pred_label == 1:
+                tn += 1
                 correct += 1
+            elif pred_label == label_idx and pred_label == 0:
+                tp += 1
+                correct += 1
+            elif pred_label != label_idx and pred_label == 0 and label_idx == 1:
+                fp += 1
+            elif pred_label != label_idx and pred_label == 1 and label_idx == 0:
+                fn += 1
 
             results.append({
                 "file": file,
@@ -135,7 +150,11 @@ def predict_database(model_type, max_images=None):
         if max_images is not None and total >= max_images:
             break
 
-    accuracy = correct / total if total > 0 else 0
+    # Manual calculations for precision, recall, f1, and accuracy
+    accuracy = (tp + tn) / (tp + fp + fn + tn)
+    precision = (tp) / (tp + fp)
+    recall = (tp) / (tp + fn)
+    f1 = (2 * precision * recall) / (precision + recall)
 
     return {
         "mode": "database",
@@ -143,8 +162,11 @@ def predict_database(model_type, max_images=None):
         "confidence": None,
         "accuracy": accuracy,
         "total": total,
-        "correct": correct,
-        "results": results
+        "correct" : correct,
+        "results": results,
+        "precision" : precision,
+        "recall": recall,
+        "f1" : f1
     }
 
 

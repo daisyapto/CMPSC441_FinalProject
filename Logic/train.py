@@ -1,3 +1,4 @@
+# Unused in main GUI running - used predict.py for all
 import os
 
 import torch
