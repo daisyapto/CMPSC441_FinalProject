@@ -2,8 +2,6 @@ matplotlib
 tkinter
 torch
 torchvision
-opencv-python
 numpy
-pillow
 customtkinter
 torchmetrics

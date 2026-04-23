@@ -1,4 +1,5 @@
 import customtkinter as ctk
+
 from Logic.predict import predict
 
 ctk.set_appearance_mode("light")
@@ -27,7 +28,7 @@ class App(ctk.CTk):
 
         self.desc_label = ctk.CTkLabel(
             self.header_frame,
-            text="First, choose an AI model: CNN 1, CNN 2, or the Ensemble Model Second, upload an xray of a brain to test or use our database of xrays.",
+            text="First, choose an AI model: CNN 1, CNN 2, or the Ensemble Model\nSecond, upload an xray of a brain to test or use our database of xrays.",
             font=("Arial", 16)
         )
         self.desc_label.pack(anchor="w", padx=20)
@@ -177,12 +178,17 @@ class App(ctk.CTk):
             correct = output["correct"]
             total_tests = output["total"]
 
-            # Clean
-            accuracy = round(accuracy * 100, 2)
+            recall = output['recall']
+            precision = output['precision']
+            f1 = output['f1']
 
             # Print
             self.performance_value.configure(
-                text=f"Correct Predictions {correct} / {total_tests}  ({accuracy}% accuracy)")
+                text=f"Correct Predictions: {correct} / {total_tests}\n"
+                     f"Accuracy: {accuracy * 100:.4f}%\n"
+                     f"Recall: {recall * 100:.4f}%\n"
+                     f"Precision: {precision * 100:.4f}%\n"
+                     f"F1 Score: {f1 * 100:.4f}%")
 
 
 if __name__ == "__main__":
