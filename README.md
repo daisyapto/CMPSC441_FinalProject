@@ -3,8 +3,8 @@
 ### Multi-model Pipeline Process
 
 Dataset used:
-- https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset/data
-- https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
+- Training + test1: https://www.kaggle.com/datasets/preetviradiya/brian-tumor-dataset/data
+- Test2: https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset
   
 
 Features:
