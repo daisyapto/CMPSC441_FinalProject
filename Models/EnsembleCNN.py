@@ -1,6 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
 
+
 # https://discuss.pytorch.org/t/combining-trained-models-in-pytorch/28383/2
 
 class Ensemble(nn.Module):
@@ -8,15 +9,16 @@ class Ensemble(nn.Module):
         super(Ensemble, self).__init__()
         self.CNN1 = CNN1
         self.CNN2 = CNN2
-        self.classifier = nn.Linear(4,2)
 
     def forward(self, x1, x2):
-        x1 = F.softmax(self.CNN1(x1))
-        x2 = F.softmax(self.CNN2(x2))
-        x = (x1 * 0.7 + x2 * .3)/2 # Fixed proper concatenation; also add weight to better performing model
-        #print(x)
-        #x = self.classifier(F.relu(x))
-        return x
+        out1 = self.CNN1(x1)  # logits
+        out2 = self.CNN2(x2)  # logits
+
+        # weighted average of logits
+        out = out1 * 0.7 + out2 * 0.3
+
+        return out
+
 
 # Testing
 """
